@@ -1,14 +1,14 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
-// TODO: Substitua pelas configurações do seu projeto no Firebase
+// Configuração do projeto no Firebase
 const firebaseConfig = {
-    apiKey: "SUA_API_KEY",
-    authDomain: "SEU_PROJETO.firebaseapp.com",
-    projectId: "SEU_PROJETO",
-    storageBucket: "SEU_PROJETO.appspot.com",
-    messagingSenderId: "SEU_SENDER_ID",
-    appId: "SEU_APP_ID"
+    apiKey: "AIzaSyDsqIfDh_80n7dvytNzhZZxKnAUMAlLDZw",
+    authDomain: "mgfmpu-21f0e.firebaseapp.com",
+    projectId: "mgfmpu-21f0e",
+    storageBucket: "mgfmpu-21f0e.firebasestorage.app",
+    messagingSenderId: "796003800300",
+    appId: "1:796003800300:web:7e097627e86782a1bd81c9"
 };
 
 // Inicializa Firebase

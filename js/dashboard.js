@@ -1,5 +1,5 @@
 import { auth, authorizedEmails } from './firebase-config.js';
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
 const dashboardContent = document.getElementById('dashboardContent');
 const userName = document.getElementById('userName');
