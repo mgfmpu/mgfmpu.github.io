@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Células | Painel de Gestão</title>
+    <title>Agenda | Painel de Gestão</title>
     <link rel="stylesheet" href="css/styles.css">
     <!-- Firebase SDKs -->
     <script type="module" src="js/firebase-config.js" defer></script>
-    <script type="module" src="js/celulas.js" defer></script>
+    <script type="module" src="js/agenda.js" defer></script>
     <style>
         .table-container { width: 100%; overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
@@ -24,6 +24,10 @@
         }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
         .action-btns button { padding: 0.4rem 0.8rem; font-size: 0.85rem; margin-right: 0.5rem; }
+        .badge { padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; }
+        .badge-1 { background: rgba(239, 68, 68, 0.2); color: #ef4444; } /* Alta */
+        .badge-2 { background: rgba(245, 158, 11, 0.2); color: #f59e0b; } /* Media */
+        .badge-3 { background: rgba(59, 130, 246, 0.2); color: #3b82f6; } /* Baixa */
     </style>
 </head>
 <body>
@@ -34,8 +38,8 @@
                 <a href="dashboard.html" class="menu-item">Dashboard</a>
                 <a href="membros.html" class="menu-item">Membros</a>
                 <a href="financeiro.html" class="menu-item">Financeiro</a>
-                <a href="celulas.html" class="menu-item active">Células</a>
-                <a href="agenda.html" class="menu-item">Agenda</a>
+                <a href="celulas.html" class="menu-item">Células</a>
+                <a href="agenda.html" class="menu-item active">Agenda</a>
                 <a href="patrimonio.html" class="menu-item">Patrimônio</a>
                 <a href="eventos.html" class="menu-item">Eventos</a>
                 <a href="igrejas.html" class="menu-item">Congregações</a>
@@ -45,8 +49,8 @@
 
         <main class="main-content">
             <div class="glass-card header mb-4">
-                <h2>Gestão de Células</h2>
-                <button id="addCelulaBtn" class="btn btn-primary" style="width: auto;">+ Nova Célula</button>
+                <h2>Agenda Pastoral e Tarefas</h2>
+                <button id="addBtn" class="btn btn-primary" style="width: auto;">+ Novo Compromisso</button>
             </div>
 
             <div class="glass-card">
@@ -54,15 +58,14 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Nome da Célula</th>
-                                <th>Responsável</th>
-                                <th>Dias de Reunião</th>
-                                <th>Horário</th>
+                                <th>Data/Hora</th>
+                                <th>Assunto</th>
+                                <th>Prioridade</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
-                        <tbody id="celulasTableBody">
-                            <tr><td colspan="5" class="text-center">Carregando células...</td></tr>
+                        <tbody id="tableBody">
+                            <tr><td colspan="4" class="text-center">Carregando dados...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -71,38 +74,39 @@
     </div>
 
     <!-- Modal Adicionar/Editar -->
-    <div id="celulaModal" class="modal hidden">
+    <div id="modalForm" class="modal hidden">
         <div class="modal-content">
-            <h3 class="mb-4" id="modalTitle">Cadastrar Célula</h3>
-            <form id="celulaForm">
-                <input type="hidden" id="celulaId">
+            <h3 class="mb-4" id="modalTitle">Cadastrar Compromisso</h3>
+            <form id="dataForm">
+                <input type="hidden" id="docId">
                 <div class="form-grid mb-4">
                     <div class="form-group" style="grid-column: span 2;">
-                        <label>Nome da Célula *</label>
-                        <input type="text" id="nomeCelula" required>
+                        <label>Assunto *</label>
+                        <input type="text" id="assunto" required>
                     </div>
-                    
-                    <div class="form-group" style="grid-column: span 2;">
-                        <label>Responsável / Líder *</label>
-                        <input type="text" id="responsavel" required>
-                    </div>
-
                     <div class="form-group">
-                        <label>Dias de Reunião</label>
-                        <input type="text" id="diasReunioes" placeholder="Ex: Sexta, Sábado">
+                        <label>Data *</label>
+                        <input type="date" id="data" required>
                     </div>
                     <div class="form-group">
                         <label>Horário</label>
-                        <input type="time" id="horarioReunioes">
+                        <input type="time" id="horario">
                     </div>
-
+                    <div class="form-group">
+                        <label>Prioridade</label>
+                        <select id="prioridade" style="width: 100%; padding: 0.75rem; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 8px;">
+                            <option value="3">Baixa</option>
+                            <option value="2">Média</option>
+                            <option value="1">Alta</option>
+                        </select>
+                    </div>
                     <div class="form-group" style="grid-column: span 2;">
-                        <label>Endereço</label>
-                        <input type="text" id="endereco">
+                        <label>Detalhes/Tarefa</label>
+                        <textarea id="tarefa" rows="3" style="width: 100%; padding: 0.75rem; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 8px;"></textarea>
                     </div>
                 </div>
                 <div style="display: flex; gap: 1rem; justify-content: flex-end;">
-                    <button type="button" class="btn btn-outline" style="width: auto;" id="closeModalBtn">Cancelar</button>
+                    <button type="button" class="btn btn-outline" style="width: auto;" id="closeBtn">Cancelar</button>
                     <button type="submit" class="btn btn-primary" style="width: auto;" id="saveBtn">Salvar</button>
                 </div>
             </form>

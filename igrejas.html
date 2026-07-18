@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Células | Painel de Gestão</title>
+    <title>Congregações | Painel de Gestão</title>
     <link rel="stylesheet" href="css/styles.css">
     <!-- Firebase SDKs -->
     <script type="module" src="js/firebase-config.js" defer></script>
-    <script type="module" src="js/celulas.js" defer></script>
+    <script type="module" src="js/igrejas.js" defer></script>
     <style>
         .table-container { width: 100%; overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
@@ -34,19 +34,19 @@
                 <a href="dashboard.html" class="menu-item">Dashboard</a>
                 <a href="membros.html" class="menu-item">Membros</a>
                 <a href="financeiro.html" class="menu-item">Financeiro</a>
-                <a href="celulas.html" class="menu-item active">Células</a>
+                <a href="celulas.html" class="menu-item">Células</a>
                 <a href="agenda.html" class="menu-item">Agenda</a>
                 <a href="patrimonio.html" class="menu-item">Patrimônio</a>
                 <a href="eventos.html" class="menu-item">Eventos</a>
-                <a href="igrejas.html" class="menu-item">Congregações</a>
+                <a href="igrejas.html" class="menu-item active">Congregações</a>
                 <a href="migracao.html" class="menu-item" style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">Migração (SQL)</a>
             </nav>
         </aside>
 
         <main class="main-content">
             <div class="glass-card header mb-4">
-                <h2>Gestão de Células</h2>
-                <button id="addCelulaBtn" class="btn btn-primary" style="width: auto;">+ Nova Célula</button>
+                <h2>Gestão de Congregações / Igrejas</h2>
+                <button id="addBtn" class="btn btn-primary" style="width: auto;">+ Nova Congregação</button>
             </div>
 
             <div class="glass-card">
@@ -54,15 +54,15 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Nome da Célula</th>
-                                <th>Responsável</th>
-                                <th>Dias de Reunião</th>
-                                <th>Horário</th>
+                                <th>Nome</th>
+                                <th>Dirigente Responsável</th>
+                                <th>Telefone</th>
+                                <th>Cidade/UF</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
-                        <tbody id="celulasTableBody">
-                            <tr><td colspan="5" class="text-center">Carregando células...</td></tr>
+                        <tbody id="tableBody">
+                            <tr><td colspan="5" class="text-center">Carregando dados...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -71,38 +71,47 @@
     </div>
 
     <!-- Modal Adicionar/Editar -->
-    <div id="celulaModal" class="modal hidden">
+    <div id="modalForm" class="modal hidden">
         <div class="modal-content">
-            <h3 class="mb-4" id="modalTitle">Cadastrar Célula</h3>
-            <form id="celulaForm">
-                <input type="hidden" id="celulaId">
+            <h3 class="mb-4" id="modalTitle">Cadastrar Congregação</h3>
+            <form id="dataForm">
+                <input type="hidden" id="docId">
                 <div class="form-grid mb-4">
                     <div class="form-group" style="grid-column: span 2;">
-                        <label>Nome da Célula *</label>
-                        <input type="text" id="nomeCelula" required>
-                    </div>
-                    
-                    <div class="form-group" style="grid-column: span 2;">
-                        <label>Responsável / Líder *</label>
-                        <input type="text" id="responsavel" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Dias de Reunião</label>
-                        <input type="text" id="diasReunioes" placeholder="Ex: Sexta, Sábado">
+                        <label>Nome da Igreja/Congregação *</label>
+                        <input type="text" id="igrejaNome" required>
                     </div>
                     <div class="form-group">
-                        <label>Horário</label>
-                        <input type="time" id="horarioReunioes">
+                        <label>Dirigente Responsável</label>
+                        <input type="text" id="dirigente">
                     </div>
-
+                    <div class="form-group">
+                        <label>CNPJ</label>
+                        <input type="text" id="cnpj">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <input type="text" id="telefone">
+                    </div>
+                    <div class="form-group">
+                        <label>Data de Fundação</label>
+                        <input type="date" id="dataFundacao">
+                    </div>
                     <div class="form-group" style="grid-column: span 2;">
                         <label>Endereço</label>
                         <input type="text" id="endereco">
                     </div>
+                    <div class="form-group">
+                        <label>Cidade</label>
+                        <input type="text" id="cidade">
+                    </div>
+                    <div class="form-group">
+                        <label>UF</label>
+                        <input type="text" id="uf">
+                    </div>
                 </div>
                 <div style="display: flex; gap: 1rem; justify-content: flex-end;">
-                    <button type="button" class="btn btn-outline" style="width: auto;" id="closeModalBtn">Cancelar</button>
+                    <button type="button" class="btn btn-outline" style="width: auto;" id="closeBtn">Cancelar</button>
                     <button type="submit" class="btn btn-primary" style="width: auto;" id="saveBtn">Salvar</button>
                 </div>
             </form>
