@@ -62,7 +62,7 @@ async function loadData() {
 }
 
 document.getElementById('addBtn').addEventListener('click', () => { document.getElementById('modalForm').classList.remove('hidden'); document.getElementById('dataForm').reset(); currentEditId = null; document.getElementById('modalTitle') ? document.getElementById('modalTitle').textContent = 'Adicionar Novo' : null; });
-document.getElementById('closeBtn').addEventListener('click', () => document.getElementById('modalForm').classList.add('hidden'); currentEditId = null;);
+document.getElementById('closeBtn').addEventListener('click', () => { document.getElementById('modalForm').classList.add('hidden'); currentEditId = null; });
 
 document.getElementById('dataForm').addEventListener('submit', async (e) => {
     e.preventDefault(); const sb = document.getElementById('saveBtn'); sb.disabled = true;
@@ -74,6 +74,6 @@ document.getElementById('dataForm').addEventListener('submit', async (e) => {
         } else {
             await addDoc(colRef, { campo1: document.getElementById('campo1').value, campo2: document.getElementById('campo2').value, createdAt: new Date().toISOString() });
         }
-        document.getElementById('modalForm').classList.add('hidden'); currentEditId = null;; loadData();
+        document.getElementById('modalForm').classList.add('hidden'); currentEditId = null; loadData();
     } catch(err){} finally { sb.disabled = false; }
 });
