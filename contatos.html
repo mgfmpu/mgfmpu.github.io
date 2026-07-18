@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda de Contatos | Painel de Gestão</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="module" src="js/firebase-config.js" defer></script>
+    <script type="module" src="js/contatos.js" defer></script>
+    <style>
+        .table-container { width: 100%; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-color); }
+        th { background: rgba(0, 0, 0, 0.2); color: var(--text-secondary); font-weight: 500; }
+        tr:hover { background: rgba(255, 255, 255, 0.05); }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-content { background: var(--card-bg); backdrop-filter: blur(12px); padding: 2rem; border-radius: 12px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; }
+        .form-group { margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout hidden" id="dashboardContent">
+        <aside class="sidebar glass-card">
+            <h2 class="mb-4 text-center">SIGEST</h2>
+            <nav class="menu" id="navMenuPlaceholder"></nav>
+        </aside>
+        <main class="main-content">
+            <div class="glass-card header mb-4">
+                <h2>Agenda de Contatos</h2>
+                <button id="addBtn" class="btn btn-primary" style="width: auto;">+ Novo</button>
+            </div>
+            <div class="glass-card">
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Nome</th><th>Telefone</th><th>Ações</th></tr></thead>
+                        <tbody id="tableBody"><tr><td colspan="3" class="text-center">Carregando dados...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="modalForm" class="modal hidden">
+        <div class="modal-content">
+            <h3 class="mb-4">Cadastrar Agenda de Contatos</h3>
+            <form id="dataForm">
+                <div class="form-group"><label>Campo 1 *</label><input type="text" id="campo1" required></div>
+                <div class="form-group"><label>Campo 2</label><input type="text" id="campo2"></div>
+                <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem;">
+                    <button type="button" class="btn btn-outline" style="width: auto;" id="closeBtn">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" style="width: auto;" id="saveBtn">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
