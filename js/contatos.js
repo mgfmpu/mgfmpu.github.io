@@ -19,10 +19,8 @@ async function loadData() {
         if (snap.empty) { tb.innerHTML = '<tr><td colspan="3" class="text-center">Vazio.</td></tr>'; return; }
         snap.forEach(d => {
             const f = d.data();
-            const vals = Object.values(f);
-            let c1 = vals[0] || f.Nome || f.Titulo || f.nome || f.titulo || f.Tarefa || f.tarefa || '-';
-            let c2 = vals[1] || f.Telefone || f.telefone || f.Data || f.data || f.Email || f.email || '-';
-            if (typeof c1 === 'object') c1 = '-'; if (typeof c2 === 'object') c2 = '-';
+            let c1 = f.Pessoa_Empresa || f.nome || '-';
+            let c2 = f.Telefone_1 || f.telefone || '-';
             const tr = document.createElement('tr');
             tr.innerHTML = `<td><strong>${c1}</strong></td><td>${c2}</td>
                 <td class="action-btns" style="width: 100px;"><button class="btn btn-outline del-btn" style="color:red;border-color:red;" data-id="${d.id}">Excluir</button></td>`;
