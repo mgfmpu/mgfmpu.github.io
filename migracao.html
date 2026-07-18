@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migração de Dados | Painel de Gestão</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Firebase SDKs -->
+    <script type="module" src="js/firebase-config.js" defer></script>
+    <script type="module" src="js/migracao.js" defer></script>
+</head>
+<body>
+    <div class="dashboard-layout hidden" id="dashboardContent">
+        <aside class="sidebar glass-card">
+            <h2 class="mb-4 text-center">SIGEST</h2>
+            <nav class="menu">
+                <a href="dashboard.html" class="menu-item">Dashboard</a>
+                <a href="membros.html" class="menu-item">Membros</a>
+                <a href="#" class="menu-item">Financeiro</a>
+                <a href="#" class="menu-item">Células</a>
+                <a href="migracao.html" class="menu-item active">Migração (SQL)</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="glass-card header mb-4">
+                <h2>Ferramenta de Migração</h2>
+            </div>
+
+            <div class="glass-card">
+                <h3 class="mb-2">Importar Exportação do phpMyAdmin (JSON)</h3>
+                <p class="mb-4">Selecione o arquivo JSON exportado do seu banco de dados MySQL antigo para enviar as tabelas para o Firestore.</p>
+                
+                <div class="form-group">
+                    <input type="file" id="jsonFileInput" accept=".json" style="padding: 1rem; cursor: pointer;">
+                </div>
+                
+                <button id="analisarBtn" class="btn btn-primary mb-4" disabled>Analisar Arquivo</button>
+                
+                <div id="resultadoAnalise" class="hidden">
+                    <h4 class="mb-2">Tabelas Encontradas:</h4>
+                    <ul id="tabelasList" style="margin-bottom: 1.5rem; color: var(--text-secondary); line-height: 1.8;"></ul>
+                    
+                    <div class="alert error" id="avisoVazio" style="display: none;">
+                        Atenção: A tabela de "membro" possui 0 registros neste arquivo.
+                    </div>
+
+                    <button id="migrarBtn" class="btn btn-outline" style="border-color: var(--success-color); color: var(--success-color);">
+                        Iniciar Migração para o Firebase
+                    </button>
+                </div>
+
+                <div id="statusMigracao" class="mt-4" style="color: var(--primary-color); font-weight: 600;"></div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

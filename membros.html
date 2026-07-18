@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membros | Painel de Gestão</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Firebase SDKs -->
+    <script type="module" src="js/firebase-config.js" defer></script>
+    <script type="module" src="js/membros.js" defer></script>
+    <style>
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            padding: 2rem;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .action-btns button {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout hidden" id="dashboardContent">
+        <aside class="sidebar glass-card">
+            <h2 class="mb-4 text-center">SIGEST</h2>
+            <nav class="menu">
+                <a href="dashboard.html" class="menu-item">Dashboard</a>
+                <a href="membros.html" class="menu-item active">Membros</a>
+                <a href="#" class="menu-item">Financeiro</a>
+                <a href="#" class="menu-item">Células</a>
+                <a href="#" class="menu-item">Configurações</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="glass-card header mb-4">
+                <h2>Gestão de Membros</h2>
+                <button id="addMembroBtn" class="btn btn-primary" style="width: auto;">+ Novo Membro</button>
+            </div>
+
+            <div class="glass-card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>Telefone</th>
+                                <th>Cargo</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="membrosTableBody">
+                            <tr><td colspan="5" class="text-center">Carregando membros...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Adicionar/Editar -->
+    <div id="membroModal" class="modal hidden">
+        <div class="modal-content">
+            <h3 class="mb-4" id="modalTitle">Cadastrar Membro</h3>
+            <form id="membroForm">
+                <input type="hidden" id="membroId">
+                <div class="form-grid mb-4">
+                    <div class="form-group">
+                        <label>Nome Completo *</label>
+                        <input type="text" id="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label>CPF</label>
+                        <input type="text" id="cpf">
+                    </div>
+                    <div class="form-group">
+                        <label>Data de Nascimento</label>
+                        <input type="date" id="dataNasc">
+                    </div>
+                    <div class="form-group">
+                        <label>Sexo</label>
+                        <select id="sexo" style="width: 100%; padding: 0.75rem; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 8px;">
+                            <option value="M">Masculino</option>
+                            <option value="F">Feminino</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefone/Celular</label>
+                        <input type="text" id="telefone">
+                    </div>
+                    <div class="form-group">
+                        <label>Cargo Ministerial</label>
+                        <select id="cargo" style="width: 100%; padding: 0.75rem; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 8px;">
+                            <option value="Membro">Membro</option>
+                            <option value="Pastor">Pastor</option>
+                            <option value="Diácono">Diácono</option>
+                            <option value="Líder">Líder</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                    <button type="button" class="btn btn-outline" style="width: auto;" id="closeModalBtn">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" style="width: auto;" id="saveBtn">Salvar Membro</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
