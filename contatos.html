@@ -17,12 +17,42 @@
         .modal-content { background: var(--card-bg); backdrop-filter: blur(12px); padding: 2rem; border-radius: 12px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; }
         .form-group { margin-bottom: 1rem; }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/global.js" defer></script>
 </head>
 <body>
+    
+    <!-- Mobile Header -->
+    <div class="mobile-header hidden" id="mobileHeader">
+        <h2 class="mobile-title">SIGEST</h2>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+    
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <div class="dashboard-layout hidden" id="dashboardContent">
+
         <aside class="sidebar glass-card">
             <h2 class="mb-4 text-center">SIGEST</h2>
-            <nav class="menu" id="navMenuPlaceholder"></nav>
+            <nav class="menu" id="navMenuPlaceholder">
+                <a href="dashboard.html" class="menu-item">Dashboard</a>
+                <a href="membros.html" class="menu-item">Membros</a>
+                <a href="financeiro.html" class="menu-item">Financeiro</a>
+                <a href="celulas.html" class="menu-item">Células</a>
+                <a href="agenda.html" class="menu-item">Agenda</a>
+                <a href="patrimonio.html" class="menu-item">Patrimônio</a>
+                <a href="eventos.html" class="menu-item">Eventos</a>
+                <a href="igrejas.html" class="menu-item">Congregações</a>
+                <a href="funcionarios.html" class="menu-item">Funcionários</a>
+                <a href="estudos.html" class="menu-item">Estudos Bíblicos</a>
+                <a href="cartas.html" class="menu-item">Cartas</a>
+                <a href="contatos.html" class="menu-item active">Contatos</a>
+                <a href="tarefas.html" class="menu-item">Tarefas</a>
+                <a href="usuarios.html" class="menu-item">Usuários</a>
+                <a href="configuracoes.html" class="menu-item" style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">Config. Genéricas</a>
+                <a href="migracao.html" class="menu-item">Migração (SQL)</a>
+            </nav>
         </aside>
         <main class="main-content">
             <div class="glass-card header mb-4">

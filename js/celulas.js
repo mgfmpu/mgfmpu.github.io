@@ -53,7 +53,7 @@ async function loadCelulas() {
                 <td>${dias}</td>
                 <td>${horario}</td>
                 <td class="action-btns">
-                    <button class="btn btn-outline del-btn" style="color: var(--error-color); border-color: var(--error-color);" data-id="${id}">Excluir</button>
+                    <button class="btn-icon edit-btn" title="Editar" data-id="${d.id}" data-obj='${JSON.stringify(f).replace(/'/g, "&apos;")}'><i class="fas fa-edit"></i></button><button class="btn-icon del-btn" title="Excluir" data-id="${d.id}"><i class="fas fa-trash-alt"></i></button>
                 </td>
             `;
             celulasTableBody.appendChild(tr);
@@ -104,7 +104,12 @@ celulaForm.addEventListener('submit', async (e) => {
 
     try {
         dataObj.createdAt = new Date().toISOString();
-        await addDoc(celulasRef, dataObj);
+        if (currentEditId) {
+            const docRef = doc(db, colRef ? colRef.id : currentCollection, currentEditId);
+            await updateDoc(docRef, await addDoc(celulasRef, dataObj).match(/,s*({[^]+?}))/)[1]);
+        } else {
+            await addDoc(celulasRef, dataObj);
+        }
         celulaModal.classList.add('hidden');
         loadCelulas();
     } catch (error) {

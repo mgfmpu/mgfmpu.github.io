@@ -47,7 +47,7 @@ async function loadMembros() {
                 <td><span style="background: var(--primary-color); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">${m.cargo || 'Membro'}</span></td>
                 <td class="action-btns">
                     <button class="btn btn-outline edit-btn" data-id="${id}" data-membro='${JSON.stringify(m)}'>Editar</button>
-                    <button class="btn btn-outline del-btn" style="color: var(--error-color); border-color: var(--error-color);" data-id="${id}">Excluir</button>
+                    <button class="btn-icon edit-btn" title="Editar" data-id="${d.id}" data-obj='${JSON.stringify(f).replace(/'/g, "&apos;")}'><i class="fas fa-edit"></i></button><button class="btn-icon del-btn" title="Excluir" data-id="${d.id}"><i class="fas fa-trash-alt"></i></button>
                 </td>
             `;
             membrosTableBody.appendChild(tr);
@@ -124,7 +124,12 @@ membroForm.addEventListener('submit', async (e) => {
             await updateDoc(doc(db, "membros", id), membroData);
         } else {
             membroData.createdAt = new Date().toISOString();
+            if (currentEditId) {
+            const docRef = doc(db, colRef ? colRef.id : currentCollection, currentEditId);
+            await updateDoc(docRef, await addDoc(membrosRef, membroData).match(/,s*({[^]+?}))/)[1]);
+        } else {
             await addDoc(membrosRef, membroData);
+        }
         }
         membroModal.classList.add('hidden');
         loadMembros();

@@ -25,12 +25,25 @@
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
         .action-btns button { padding: 0.4rem 0.8rem; font-size: 0.85rem; margin-right: 0.5rem; }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/global.js" defer></script>
 </head>
 <body>
+    
+    <!-- Mobile Header -->
+    <div class="mobile-header hidden" id="mobileHeader">
+        <h2 class="mobile-title">SIGEST</h2>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+    
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <div class="dashboard-layout hidden" id="dashboardContent">
+
         <aside class="sidebar glass-card">
             <h2 class="mb-4 text-center">SIGEST</h2>
-            <nav class="menu">
+            <nav class="menu" id="navMenuPlaceholder">
                 <a href="dashboard.html" class="menu-item">Dashboard</a>
                 <a href="membros.html" class="menu-item">Membros</a>
                 <a href="financeiro.html" class="menu-item">Financeiro</a>

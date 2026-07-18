@@ -1,9 +1,10 @@
 import { auth, authorizedEmails, app } from './firebase-config.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
-import { getFirestore, collection, getDocs, addDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, addDoc, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 const db = getFirestore(app);
-const colRef = collection(db, "bens_patrimoniais");
+const colRef = collection(db, "bens_patrimoniais"); 
+let currentEditId = null;
 
 const dashboardContent = document.getElementById('dashboardContent');
 const tableBody = document.getElementById('tableBody');
@@ -36,7 +37,7 @@ async function loadData() {
                 <td>${f.DataAquisao || f.dataAquisicao || '-'}</td>
                 <td>${f.Tipo || f.tipo || '-'}</td>
                 <td>R$ ${f.Valor_estimado || f.valorEstimado || '0.00'}</td>
-                <td class="action-btns"><button class="btn btn-outline del-btn" style="color: red; border-color: red;" data-id="${docSnap.id}">Excluir</button></td>
+                <td class="action-btns"><button class="btn-icon edit-btn" title="Editar" data-id="${d.id}" data-obj='${JSON.stringify(f).replace(/'/g, "&apos;")}'><i class="fas fa-edit"></i></button><button class="btn-icon del-btn" title="Excluir" data-id="${d.id}"><i class="fas fa-trash-alt"></i></button></td>
             `;
             tableBody.appendChild(tr);
         });

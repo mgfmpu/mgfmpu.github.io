@@ -97,7 +97,7 @@ async function loadFinanceiro() {
                 <td><span class="${tipo === 'receita' ? 'badge-receita' : 'badge-despesa'}">${tipo === 'receita' ? 'Receita' : 'Despesa'}</span></td>
                 <td style="font-weight: 600; color: ${tipo === 'receita' ? '#10b981' : '#ef4444'}">${formatarMoeda(valor)}</td>
                 <td class="action-btns">
-                    <button class="btn btn-outline del-btn" style="color: var(--error-color); border-color: var(--error-color);" data-id="${f.id}">Excluir</button>
+                    <button class="btn-icon edit-btn" title="Editar" data-id="${d.id}" data-obj='${JSON.stringify(f).replace(/'/g, "&apos;")}'><i class="fas fa-edit"></i></button><button class="btn-icon del-btn" title="Excluir" data-id="${d.id}"><i class="fas fa-trash-alt"></i></button>
                 </td>
             `;
             finTableBody.appendChild(tr);
@@ -156,7 +156,12 @@ finForm.addEventListener('submit', async (e) => {
 
     try {
         dataObj.createdAt = new Date().toISOString();
-        await addDoc(financeiroRef, dataObj);
+        if (currentEditId) {
+            const docRef = doc(db, colRef ? colRef.id : currentCollection, currentEditId);
+            await updateDoc(docRef, await addDoc(financeiroRef, dataObj).match(/,s*({[^]+?}))/)[1]);
+        } else {
+            await addDoc(financeiroRef, dataObj);
+        }
         finModal.classList.add('hidden');
         loadFinanceiro();
     } catch (error) {
