@@ -48,10 +48,10 @@ async function loadData() {
             
             // If it's a specific page like funcionarios, we might need to map by name/id
             // But generically, we can try to guess or just map the first few values
-            if (f.nome !== undefined && document.getElementById('nome')) document.getElementById('nome').value = f.nome;
-            if (f.cargo !== undefined && document.getElementById('cargo')) document.getElementById('cargo').value = f.cargo;
-            if (f.telefone !== undefined && document.getElementById('telefone')) document.getElementById('telefone').value = f.telefone;
-            if (f.endereco !== undefined && document.getElementById('endereco')) document.getElementById('endereco').value = f.endereco;
+            if (obj.nome !== undefined && document.getElementById('nome')) document.getElementById('nome').value = obj.nome;
+            if (obj.cargo !== undefined && document.getElementById('cargo')) document.getElementById('cargo').value = obj.cargo;
+            if (obj.telefone !== undefined && document.getElementById('telefone')) document.getElementById('telefone').value = obj.telefone;
+            if (obj.endereco !== undefined && document.getElementById('endereco')) document.getElementById('endereco').value = obj.endereco;
             
             // For generic generated pages:
             if (document.getElementById('campo1')) document.getElementById('campo1').value = Object.values(obj)[0] || '';

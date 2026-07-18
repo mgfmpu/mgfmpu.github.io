@@ -47,7 +47,7 @@ async function loadMembros() {
                 <td><span style="background: var(--primary-color); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">${m.cargo || 'Membro'}</span></td>
                 <td class="action-btns">
                     <button class="btn btn-outline edit-btn" data-id="${id}" data-membro='${JSON.stringify(m)}'>Editar</button>
-                    <button class="btn-icon edit-btn" title="Editar" data-id="${d.id}" data-obj='${JSON.stringify(f).replace(/'/g, "&apos;")}'><i class="fas fa-edit"></i></button><button class="btn-icon del-btn" title="Excluir" data-id="${d.id}"><i class="fas fa-trash-alt"></i></button>
+                    <button class="btn-icon edit-btn" title="Editar" data-id="${id}" data-obj='${JSON.stringify(m).replace(/'/g, "&apos;")}'><i class="fas fa-edit"></i></button><button class="btn-icon del-btn" title="Excluir" data-id="${id}"><i class="fas fa-trash-alt"></i></button>
                 </td>
             `;
             membrosTableBody.appendChild(tr);

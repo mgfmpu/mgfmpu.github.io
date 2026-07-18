@@ -20,8 +20,8 @@ async function loadData() {
         if (snap.empty) { tb.innerHTML = '<tr><td colspan="3" class="text-center">Vazio.</td></tr>'; return; }
         snap.forEach(d => {
             const f = d.data();
-            let c1 = f.Pessoa_Empresa || f.nome || '-';
-            let c2 = f.Telefone_1 || f.telefone || '-';
+            let c1 = f.Pessoa_Empresa || obj.nome || '-';
+            let c2 = f.Telefone_1 || obj.telefone || '-';
             const tr = document.createElement('tr');
             tr.innerHTML = `<td><strong>${c1}</strong></td><td>${c2}</td>
                 <td class="action-btns" style="width: 100px;"><button class="btn-icon edit-btn" title="Editar" data-id="${d.id}" data-obj='${JSON.stringify(f).replace(/'/g, "&apos;")}'><i class="fas fa-edit"></i></button><button class="btn-icon del-btn" title="Excluir" data-id="${d.id}"><i class="fas fa-trash-alt"></i></button></td>`;
@@ -42,10 +42,10 @@ async function loadData() {
             
             // If it's a specific page like funcionarios, we might need to map by name/id
             // But generically, we can try to guess or just map the first few values
-            if (f.nome !== undefined && document.getElementById('nome')) document.getElementById('nome').value = f.nome;
-            if (f.cargo !== undefined && document.getElementById('cargo')) document.getElementById('cargo').value = f.cargo;
-            if (f.telefone !== undefined && document.getElementById('telefone')) document.getElementById('telefone').value = f.telefone;
-            if (f.endereco !== undefined && document.getElementById('endereco')) document.getElementById('endereco').value = f.endereco;
+            if (obj.nome !== undefined && document.getElementById('nome')) document.getElementById('nome').value = obj.nome;
+            if (obj.cargo !== undefined && document.getElementById('cargo')) document.getElementById('cargo').value = obj.cargo;
+            if (obj.telefone !== undefined && document.getElementById('telefone')) document.getElementById('telefone').value = obj.telefone;
+            if (obj.endereco !== undefined && document.getElementById('endereco')) document.getElementById('endereco').value = obj.endereco;
             
             // For generic generated pages:
             if (document.getElementById('campo1')) document.getElementById('campo1').value = Object.values(obj)[0] || '';
