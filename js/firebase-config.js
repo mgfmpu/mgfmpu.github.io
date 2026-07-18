@@ -25,4 +25,4 @@ const authorizedEmails = [
     // ex: "seu_email@gmail.com"
 ];
 
-export { auth, googleProvider, authorizedEmails };
+export { auth, googleProvider, authorizedEmails, app };
