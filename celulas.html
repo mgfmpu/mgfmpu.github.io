@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Células | Painel de Gestão</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Firebase SDKs -->
+    <script type="module" src="js/firebase-config.js" defer></script>
+    <script type="module" src="js/celulas.js" defer></script>
+    <style>
+        .table-container { width: 100%; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-color); }
+        th { background: rgba(0, 0, 0, 0.2); color: var(--text-secondary); font-weight: 500; }
+        tr:hover { background: rgba(255, 255, 255, 0.05); }
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000;
+        }
+        .modal-content {
+            background: var(--card-bg); backdrop-filter: blur(12px);
+            padding: 2rem; border-radius: 12px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto;
+        }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .action-btns button { padding: 0.4rem 0.8rem; font-size: 0.85rem; margin-right: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout hidden" id="dashboardContent">
+        <aside class="sidebar glass-card">
+            <h2 class="mb-4 text-center">SIGEST</h2>
+            <nav class="menu">
+                <a href="dashboard.html" class="menu-item">Dashboard</a>
+                <a href="membros.html" class="menu-item">Membros</a>
+                <a href="financeiro.html" class="menu-item">Financeiro</a>
+                <a href="celulas.html" class="menu-item active">Células</a>
+                <a href="migracao.html" class="menu-item">Migração (SQL)</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="glass-card header mb-4">
+                <h2>Gestão de Células</h2>
+                <button id="addCelulaBtn" class="btn btn-primary" style="width: auto;">+ Nova Célula</button>
+            </div>
+
+            <div class="glass-card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome da Célula</th>
+                                <th>Responsável</th>
+                                <th>Dias de Reunião</th>
+                                <th>Horário</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="celulasTableBody">
+                            <tr><td colspan="5" class="text-center">Carregando células...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Adicionar/Editar -->
+    <div id="celulaModal" class="modal hidden">
+        <div class="modal-content">
+            <h3 class="mb-4" id="modalTitle">Cadastrar Célula</h3>
+            <form id="celulaForm">
+                <input type="hidden" id="celulaId">
+                <div class="form-grid mb-4">
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Nome da Célula *</label>
+                        <input type="text" id="nomeCelula" required>
+                    </div>
+                    
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Responsável / Líder *</label>
+                        <input type="text" id="responsavel" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Dias de Reunião</label>
+                        <input type="text" id="diasReunioes" placeholder="Ex: Sexta, Sábado">
+                    </div>
+                    <div class="form-group">
+                        <label>Horário</label>
+                        <input type="time" id="horarioReunioes">
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Endereço</label>
+                        <input type="text" id="endereco">
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                    <button type="button" class="btn btn-outline" style="width: auto;" id="closeModalBtn">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" style="width: auto;" id="saveBtn">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
