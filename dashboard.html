@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Painel de Gestão</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Firebase SDKs -->
+    <script type="module" src="js/firebase-config.js" defer></script>
+    <script type="module" src="js/dashboard.js" defer></script>
+</head>
+<body>
+    <div class="dashboard-container hidden" id="dashboardContent">
+        <div class="glass-card header">
+            <h2>Painel de Gestão</h2>
+            <div class="user-profile">
+                <div>
+                    <div style="font-weight: 600; font-size: 0.95rem;" id="userName">Carregando...</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary);" id="userEmail"></div>
+                </div>
+                <div class="user-avatar" id="userAvatar">
+                    U
+                </div>
+                <button id="logoutBtn" class="btn btn-outline" style="padding: 0.5rem 1rem; width: auto; margin-left: 1rem;">
+                    Sair
+                </button>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="glass-card stat-card">
+                <div style="color: var(--text-secondary); font-size: 0.9rem;">Total de Membros</div>
+                <div class="stat-value">1,245</div>
+            </div>
+            <div class="glass-card stat-card">
+                <div style="color: var(--text-secondary); font-size: 0.9rem;">Células Ativas</div>
+                <div class="stat-value">42</div>
+            </div>
+            <div class="glass-card stat-card">
+                <div style="color: var(--text-secondary); font-size: 0.9rem;">Receitas no Mês</div>
+                <div class="stat-value">R$ 15.420</div>
+            </div>
+        </div>
+
+        <div class="glass-card" style="flex: 1;">
+            <h3 class="mb-4">Bem-vindo ao novo Painel!</h3>
+            <p class="mb-2">Você entrou com sucesso usando a autenticação do Firebase.</p>
+            <p>Este painel agora pode ser hospedado no GitHub Pages. Para migrar as outras funcionalidades do sistema antigo (PHP), novas telas estáticas deverão ser desenvolvidas e integradas ao Firebase Firestore.</p>
+        </div>
+    </div>
+</body>
+</html>
